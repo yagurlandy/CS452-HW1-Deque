@@ -1,0 +1,23 @@
+rm -f deq *.o *.d *.i try
+gcc -o deq.o -c deq.c -g -Wall -MMD -D_GNU_SOURCE
+gcc -o main.o -c main.c -g -Wall -MMD -D_GNU_SOURCE
+gcc -o deq deq.o main.o -g
+All queue tests passed.
+gcc -o try main.o -L. -ldeq -Wl,-rpath=.
+All queue tests passed.
+valgrind --leak-check=full --show-leak-kinds=all ./deq 
+==18700== Memcheck, a memory error detector
+==18700== Copyright (C) 2002-2022, and GNU GPL'd, by Julian Seward et al.
+==18700== Using Valgrind-3.22.0 and LibVEX; rerun with -h for copyright info
+==18700== Command: ./deq
+==18700== 
+All queue tests passed.
+==18700== 
+==18700== HEAP SUMMARY:
+==18700==     in use at exit: 0 bytes in 0 blocks
+==18700==   total heap usage: 31 allocs, 31 frees, 4,523 bytes allocated
+==18700== 
+==18700== All heap blocks were freed -- no leaks are possible
+==18700== 
+==18700== For lists of detected and suppressed errors, rerun with: -s
+==18700== ERROR SUMMARY: 0 errors from 0 contexts (suppressed: 0 from 0)
